@@ -140,8 +140,14 @@ likeButtonText = "Unlike";
                 {
                   data.comments.map((comment, i) => {
                     // i is comment's index in comments array
+                    //{console.log(i)}
                     return (
-                      <Comment key={i}
+                      <Comment
+                        key={i}
+                        idx={i}
+                        dat={comment}
+                        feedId={data._id}
+                        likeCount={comment.likeCounter}
                         author={comment.author}
                         postDate={comment.postDate}>
                         {comment.contents}

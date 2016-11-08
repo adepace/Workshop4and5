@@ -49,11 +49,14 @@ var initialData = {
         // https://en.wikipedia.org/wiki/Unix_time
         "postDate": 1453668480000,
         "location": "Austin, TX",
-        "contents": "ugh."
+        "contents": "uggh."
       },
       // List of comments on the post
       "comments": [
         {
+          "likeCounter": [
+            2, 3
+          ],
           // The author of the comment.
           "author": 2,
           // The contents of the comment.
@@ -63,6 +66,9 @@ var initialData = {
           "postDate": 1453690800000
         },
         {
+          "likeCounter": [
+            2, 3
+          ],
           "author": 3,
           "contents": "sending hugs your way",
           "postDate": 1453690800000

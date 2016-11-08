@@ -1,5 +1,25 @@
 import {readDocument, writeDocument, addDocument} from './database.js';
 
+
+export function likeFeedItemComment(commentIndex, feedItemId, userId, cb) {
+var feedItem = readDocument('feedItems', feedItemId);
+feedItem.comments[commentIndex].likeCounter.push(userId);
+writeDocument('feedItems', feedItem);
+// Return a resolved version of the likeCounter
+emulateServerReturn(feedItem.comments[commentIndex].likeCounter, cb);
+}
+
+export function unlikeFeedItemComment(commentIndex, feedItemId, userId, cb) {
+var feedItem = readDocument('feedItems', feedItemId);
+var userIndex = feedItem.comments[commentIndex].likeCounter.indexOf(userId);
+if (userIndex !== -1) {
+feedItem.comments[commentIndex].likeCounter.splice(userIndex, 1);
+writeDocument('feedItems', feedItem);
+}
+// Return a resolved version of the likeCounter
+emulateServerReturn(feedItem.comments[commentIndex].likeCounter, cb);
+}
+
 /**
 * Updates a feed item's likeCounter by adding the
 * user to the likeCounter. Provides an updated likeCounter
@@ -54,6 +74,7 @@ export function postComment(feedItemId, author, contents, cb) {
 // document in the database.
 var feedItem = readDocument('feedItems', feedItemId);
 feedItem.comments.push({
+"likeCounter": [],
 "author": author,
 "contents": contents,
 "postDate": new Date().getTime()
